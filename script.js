@@ -1,5 +1,5 @@
-// Array to store mood history
-const moodHistory = [];
+// Load stored mood history from localStorage or initialize as an empty array
+let moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
 
 // Function to handle form submission and track mood
 document.getElementById("mood-form").addEventListener("submit", function(event) {
@@ -10,23 +10,44 @@ document.getElementById("mood-form").addEventListener("submit", function(event) 
 
     // Add mood entry to history
     moodHistory.push({ mood, date });
+    saveMoodHistory(); // Save to localStorage
     
-    // Update the history and clear form
+    // Update the history display and clear form
     updateMoodHistory();
     moodSelect.value = '';
     document.getElementById("mood-output").textContent = `Mood "${mood}" recorded for ${date}.`;
 });
+
+// Function to save mood history to localStorage
+function saveMoodHistory() {
+    localStorage.setItem("moodHistory", JSON.stringify(moodHistory));
+}
 
 // Function to update mood history display
 function updateMoodHistory() {
     const historyList = document.getElementById("mood-history");
     historyList.innerHTML = ''; // Clear previous history
 
-    moodHistory.forEach(entry => {
+    moodHistory.forEach((entry, index) => {
         const listItem = document.createElement("li");
         listItem.textContent = `${entry.date}: ${entry.mood}`;
+
+        // Add delete button to each mood entry
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-btn");
+        deleteButton.onclick = () => deleteMoodEntry(index);
+
+        listItem.appendChild(deleteButton);
         historyList.appendChild(listItem);
     });
+}
+
+// Function to delete a specific mood entry
+function deleteMoodEntry(index) {
+    moodHistory.splice(index, 1); // Remove mood entry
+    saveMoodHistory(); // Update localStorage
+    updateMoodHistory(); // Refresh display
 }
 
 // Function to analyze mood history
@@ -63,3 +84,16 @@ function analyzeMood() {
         </ul>
     `;
 }
+
+// Function to clear all mood data
+function clearMoodData() {
+    if (confirm("Are you sure you want to clear all mood data?")) {
+        moodHistory = []; // Reset mood history array
+        localStorage.removeItem("moodHistory"); // Remove from localStorage
+        updateMoodHistory(); // Refresh display
+        document.getElementById("mood-analysis").innerHTML = ''; // Clear analysis results
+    }
+}
+
+// Initialize page with stored mood history
+updateMoodHistory();
