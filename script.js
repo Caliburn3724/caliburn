@@ -96,4 +96,6 @@ function clearMoodData() {
 }
 
 // Initialize page with stored mood history
-updateMoodHistory();
+window.onload = function() {
+    updateMoodHistory();
+};
