@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mood Tracker</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -18,28 +17,38 @@
             </ul>
         </nav>
     </header>
-    <section>
-        <h2>Select Your Mood</h2>
-        <form id="mood-form">
-            <select id="mood" required>
-                <option value="">--Choose your mood--</option>
-                <option value="happy">Happy</option>
-                <option value="sad">Sad</option>
-                <option value="angry">Angry</option>
-                <option value="excited">Excited</option>
-                <option value="anxious">Anxious</option>
-                <option value="relaxed">Relaxed</option>
-                <option value="bored">Bored</option>
-                <option value="motivated">Motivated</option>
-                <option value="tired">Tired</option>
-                <option value="confused">Confused</option>
+    
+    <main>
+        <section>
+            <h2>Select Your Mood</h2>
+            <label for="moodSelect">Choose your mood:</label>
+            <select id="moodSelect">
+                <option value="Happy">Happy</option>
+                <option value="Sad">Sad</option>
+                <option value="Anxious">Anxious</option>
+                <option value="Excited">Excited</option>
+                <option value="Angry">Angry</option>
+                <option value="Relaxed">Relaxed</option>
+                <option value="Productive">Productive</option>
+                <option value="Tired">Tired</option>
+                <option value="Bored">Bored</option>
+                <option value="Confident">Confident</option>
             </select>
-            <button type="submit">Submit Mood</button>
-        </form>
-        <div id="mood-output"></div>
-    </section>
-    <footer>
-        <p>&copy; 2023 Caliburn's Domain</p>
-    </footer>
+            <button onclick="trackMood()">Track Mood</button>
+        </section>
+
+        <section>
+            <h2>Mood History</h2>
+            <ul id="moodHistory"></ul>
+        </section>
+
+        <section>
+            <h2>Mood Analysis</h2>
+            <button onclick="analyzeMood()">Analyze Mood</button>
+            <div id="moodAnalysis"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
-</html>
+    </html>
