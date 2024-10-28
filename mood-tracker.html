@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Mood Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mood-tracker.html">Mood Tracker</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h2>Select Your Mood</h2>
+        <form id="mood-form">
+            <select id="mood" required>
+                <option value="">--Choose your mood--</option>
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="excited">Excited</option>
+                <option value="anxious">Anxious</option>
+                <option value="relaxed">Relaxed</option>
+                <option value="bored">Bored</option>
+                <option value="motivated">Motivated</option>
+                <option value="tired">Tired</option>
+                <option value="confused">Confused</option>
+            </select>
+            <button type="submit">Submit Mood</button>
+        </form>
+        <div id="mood-output"></div>
+    </section>
+    <footer>
+        <p>&copy; 2024 My Portfolio</p>
+    </footer>
+</body>
+</html>
