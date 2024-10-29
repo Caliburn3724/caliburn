@@ -68,19 +68,19 @@ main {
   max-width: 600px;
   margin: 2rem auto;
   padding: 1rem;
-  background: #fff;
+  background: #fff; /* Set background to white */
   border-radius: 10px;
-  /* Box shadow removed */
 }
 
+/* Pet Display Styling */
 #pet-display {
   margin-bottom: 1.5rem;
 }
 
 #pet {
   max-width: 80%;
-  border-radius: 15px;
-  /* Box shadow removed */
+  /* Remove border radius to blend with the background */
+  /* Remove box shadow */
 }
 
 /* Controls Styling */
@@ -117,10 +117,4 @@ button:hover {
 
 /* Footer */
 footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: var(--primary-color);
-  color: #fff;
-  font-size: 0.9rem;
-  margin-top: 2rem;
-}
+  
