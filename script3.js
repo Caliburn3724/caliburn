@@ -6,12 +6,12 @@ const happinessOutput = document.getElementById("happiness-value");
 const healthOutput = document.getElementById("health-value");
 
 const moods = {
-    happy: "buddy waving.gif",
-    sad: "buddy sad.gif",
-    playing: "buddy walking.gif",
-    eating: "buddy eating.gif",
-    sleeping: "buddy sleeping.gif",
-    dead: "buddy dead.gif"
+    happy: "buddy waving.gif", // Change to your GIF path
+    sad: "buddy sad.gif", // Change to your GIF path
+    playing: "buddy playing.gif", // Change to your GIF path
+    eating: "buddy eating.gif", // Change to your GIF path
+    sleeping: "buddy sleeping.gif", // Change to your GIF path
+    dead: "buddy dead.gif" // Change to your GIF path
 };
 
 // Function to update the outputs for happiness and health
@@ -80,4 +80,5 @@ document.getElementById("check").addEventListener("click", () => {
 
 // Initialize the outputs on load
 updateOutputs();
+
 
