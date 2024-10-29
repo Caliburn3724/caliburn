@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caliburn's Chess Engine V1.0.1</title>
-    <link rel="stylesheet" href="chess-style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboardjs/1.0.0/chessboard-1.0.0.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboardjs/1.0.0/chessboard-1.0.0.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stockfish/11.0.0/stockfish.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Engine</title>
+  <link rel="stylesheet" href="chessboard-1.0.0.min.css">
+  <style>
+    #board {
+      width: 400px;
+      margin: 20px auto;
+    }
+  </style>
 </head>
 <body>
-    <h1>Caliburn's Chess Engine V1.0.1</h1>
-    <div id="board" style="width: 400px"></div>
-    <button id="startBtn">Start Position</button>
-    <button id="clearBtn">Clear Board</button>
-    <div id="status"></div>
-    <div id="move-history"></div>
-    <script src="chess-script.js"></script>
+  <h1 style="text-align: center;">Chess Engine with Stockfish</h1>
+  <div id="board"></div>
+  <script src="chessboard-1.0.0.min.js"></script>
+  <script src="stockfish.js"></script> <!-- Stockfish -->
+  <script src="scripts/main.js"></script> <!-- Main script -->
 </body>
 </html>
