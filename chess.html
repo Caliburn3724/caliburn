@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chess Engine</title>
-  <link rel="stylesheet" href="chessboard-1.0.0.min.css">
+  <title>Interactive Chess Engine</title>
+  <link rel="stylesheet" href="chessboard/chessboard-1.0.0.min.css">
   <style>
     #board {
       width: 400px;
       margin: 20px auto;
+      background-image: url('board.png'); /* Custom board background */
+      background-size: cover;
     }
   </style>
 </head>
 <body>
-  <h1 style="text-align: center;">Caliburn's Chess Engine V1.0.1</h1>
+  <h1 style="text-align: center;">Interactive Chess Engine</h1>
   <div id="board"></div>
-  <script src="chessboard-1.0.0.min.js"></script>
-  <script src="stockfish.js"></script> <!-- Stockfish -->
-  <script src="chess-script.js"></script> <!-- Main script -->
+  <script src="chessboard/chessboard-1.0.0.min.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>
