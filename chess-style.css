@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    width: 400px;
+    height: 400px;
+}
+
+.square {
+    width: 50px;
+    height: 50px;
+}
+
+.square:nth-child(odd) {
+    background-color: #eee;
+}
+
+.square:nth-child(even) {
+    background-color: #fff;
+}
