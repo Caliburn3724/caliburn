@@ -6,12 +6,12 @@ const happinessOutput = document.getElementById("happiness-value");
 const healthOutput = document.getElementById("health-value");
 
 const moods = {
-    happy: "buddy waving.gif", // Change to your GIF path
-    sad: "buddy sad.gif", // Change to your GIF path
-    playing: "buddy playing.gif", // Change to your GIF path
-    eating: "buddy eating.gif", // Change to your GIF path
-    sleeping: "buddy sleeping.gif", // Change to your GIF path
-    dead: "buddy dead.gif" // Change to your GIF path
+    happy: "buddy_waving.gif", // Change to your GIF path
+    sad: "buddy_sad.gif", // Change to your GIF path
+    playing: "buddy_playing.gif", // Change to your GIF path
+    eating: "buddy_eating.gif", // Change to your GIF path
+    sleeping: "buddy_sleeping.gif", // Change to your GIF path
+    dead: "buddy_dead.gif" // Change to your GIF path
 };
 
 // Function to update the outputs for happiness and health
@@ -22,15 +22,6 @@ function updateOutputs() {
     if (health <= 0) {
         petImg.src = moods.dead; // Show dead GIF
         updateMoodOutput("Your Buddy has passed away. Please take better care next time.");
-    } else if (happiness <= 0) {
-        petImg.src = moods.sad; // Show sad GIF
-        updateMoodOutput("Your Buddy is very sad. Please take care of them!");
-    } else if (happiness > 50) {
-        petImg.src = moods.happy; // Show happy GIF
-        updateMoodOutput("Your Buddy is happy!");
-    } else {
-        petImg.src = moods.sad; // Show sad GIF if happiness is low
-        updateMoodOutput("Your Buddy is sad. They need more attention.");
     }
 }
 
@@ -74,11 +65,21 @@ document.getElementById("sleep").addEventListener("click", () => {
 });
 
 document.getElementById("check").addEventListener("click", () => {
-    updateMoodOutput(`Your Buddy is currently ${happiness <= 0 ? "very sad" : "happy"}.`);
-    updateOutputs();
+    if (health > 0) {
+        if (happiness > 50) {
+            petImg.src = moods.happy; // Show happy GIF
+            updateMoodOutput("Your Buddy is happy!");
+        } else {
+            petImg.src = moods.sad; // Show sad GIF
+            updateMoodOutput("Your Buddy is sad. They need more attention.");
+        }
+    } else {
+        petImg.src = moods.dead; // Show dead GIF if health is zero
+        updateMoodOutput("Your Buddy has passed away.");
+    }
+    updateOutputs(); // Update health and happiness values display
 });
 
 // Initialize the outputs on load
 updateOutputs();
-
 
