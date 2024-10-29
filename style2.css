@@ -1,20 +1,43 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: #f0f8ff;
+}
+
+header {
+    background-color: #007acc;
+    color: white;
+    padding: 10px 0;
 }
 
 #pet-display {
-    margin: 20px;
+    margin: 20px 0;
 }
 
-#pet {
-    width: 200px;
-    height: auto;
+#status {
+    margin: 20px 0;
 }
 
-#controls button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+#controls {
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007acc;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005fa3;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: gray;
 }
