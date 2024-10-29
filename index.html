@@ -23,8 +23,44 @@
         <img src="images/my-profile.jpg" alt="My Profile Picture" class="profile-pic">
         <p>Here you can find my latest projects and achievements.</p>
     </section>
+   <!-- Weather Display Section -->
+    <aside id="weather" style="position: fixed; top: 10px; right: 10px; background: white; padding: 10px; border: 1px solid #ccc;">
+        <h3>Weather</h3>
+        <div id="weather-info">Loading...</div>
+    </aside>
+
     <footer>
         <p>&copy; 2023 Caliburn's Domain</p>
     </footer>
+
+    <script>
+        // Function to fetch weather data
+        async function fetchWeather() {
+            const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+            const city = 'Dhaka'; // Replace with your preferred city
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (response.ok) {
+                    const weatherDescription = data.weather[0].description;
+                    const temperature = data.main.temp;
+                    document.getElementById('weather-info').innerHTML = `
+                        <p>${city}: ${temperature}°C</p>
+                        <p>${weatherDescription}</p>
+                    `;
+                } else {
+                    document.getElementById('weather-info').textContent = 'Weather data not available.';
+                }
+            } catch (error) {
+                document.getElementById('weather-info').textContent = 'Error fetching weather data.';
+            }
+        }
+
+        // Fetch weather data on page load
+        fetchWeather();
+    </script>
 </body>
 </html>
