@@ -11,6 +11,7 @@ const moods = {
     playing: "buddy walking.gif",
     eating: "buddy eating.gif",
     sleeping: "buddy sleeping.gif",
+    Dead    : "buddy dead.gif",
 };
 
 function updatePetImage() {
@@ -55,6 +56,7 @@ function updatePetStatus() {
     updatePetImage();
 
     if (happiness <= 0 || health <= 0) {
+        petImage.src = moods.dead;
         moodOutput.textContent = "Your pet has passed away. Please reset the game.";
         document.getElementById("controls").style.display = "none"; // Hide controls
     }
