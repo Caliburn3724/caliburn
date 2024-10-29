@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mood Tracker</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
@@ -22,7 +21,7 @@
         </nav>
     </header>
     
-    <section class="fade-in">
+    <section>
         <h2>Select Your Mood</h2>
         <form id="mood-form">
             <select id="mood" required>
@@ -43,13 +42,13 @@
         <div id="mood-output"></div>
     </section>
 
-    <section class="fade-in">
+    <section>
         <h2>Mood History</h2>
         <ul id="mood-history"></ul>
         <button onclick="clearMoodData()">Clear All Data</button>
     </section>
 
-    <section class="fade-in">
+    <section>
         <h2>Mood Analysis</h2>
         <button onclick="analyzeMood()">Analyze Moods</button>
         <div id="mood-analysis"></div>
