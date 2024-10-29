@@ -28,6 +28,13 @@ document.getElementById("sleep").addEventListener("click", () => {
     updateMoodOutput("Your Buddy is sleeping!");
 });
 
+
+document.getElementById("scold").addEventListener("click", () => {
+    mood = "sad"; // Update mood
+    petImg.src = moods.sad; // Show sad GIF
+    updateMoodOutput("Your Buddy is sad!");
+});
+
 document.getElementById("check").addEventListener("click", () => {
     updateMoodOutput(`Your Buddy is currently ${mood}.`);
 });
