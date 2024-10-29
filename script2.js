@@ -1,5 +1,5 @@
 // Initialize the map
-const map = L.map('map').setView([40.7128, -74.0060], 13); // New York City coordinates
+const map = L.map('map').setView([40.7128, -74.0060], 13); // Default to New York City
 
 // Add a base layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -13,8 +13,8 @@ function generateBlastData(center, radius, intensity) {
     for (let i = 0; i < intensity; i++) {
         const angle = Math.random() * Math.PI * 2;
         const distance = Math.random() * radius;
-        const lat = center[0] + distance * Math.cos(angle) / 111;  // Approximate degree to km conversion
-        const lng = center[1] + distance * Math.sin(angle) / 111;
+        const lat = center[0] + (distance * Math.cos(angle)) / 111; // Approximate degree to km conversion
+        const lng = center[1] + (distance * Math.sin(angle)) / 111;
         data.push([lat, lng, 0.5]); // [lat, lng, intensity]
     }
     return data;
@@ -22,12 +22,16 @@ function generateBlastData(center, radius, intensity) {
 
 // Function to simulate the blast
 function simulateBlast() {
-    const blastCenter = [40.7128, -74.0060]; // Center of explosion
+    const locationInput = document.getElementById("location").value;
+    const [lat, lng] = locationInput.split(',').map(Number); // Get latitude and longitude from input
     const blastRadius = parseFloat(document.getElementById("blast-radius").value); // Get radius from input
     const blastIntensity = parseInt(document.getElementById("blast-intensity").value); // Get intensity from input
 
+    // Set map view to the selected location
+    map.setView([lat, lng], 13);
+
     // Generate the heatmap data
-    const heatData = generateBlastData(blastCenter, blastRadius, blastIntensity);
+    const heatData = generateBlastData([lat, lng], blastRadius, blastIntensity);
 
     // Remove existing heatmap layer if it exists
     if (window.heat) {
