@@ -36,9 +36,9 @@
     <script>
         // Function to fetch weather data
         async function fetchWeather() {
-            const apiKey = '75b42cabcd1f4cda89425030242910'; // Replace with your OpenWeatherMap API key
-            const city = 'London'; // Replace with your preferred city
-            const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+            const apiKey = '007449eba0b25ab12187d3d0a44e8bc0'; // Replace with your OpenWeatherMap API key
+            const city = 'Dhaka'; // Replace with your preferred city
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
             try {
                 const response = await fetch(url);
