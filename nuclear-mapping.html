@@ -2,26 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Interactive Nuke Simulation</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuclear Mapping Simulation</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.heat/dist/leaflet-heat.css" />
     <style>
-        #map { height: 600px; width: 100%; }
-        #controls { margin: 20px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 500px;
+        }
+        .controls {
+            padding: 10px;
+            background: white;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
-    <h1>Nuke Simulation Map</h1>
-    <div id="map"></div>
-    <div id="controls">
-        <p>Click on the map to select a blast location</p>
-        <form id="blast-form">
-            <label for="yield">Blast Yield (kilotons):</label>
-            <input type="number" id="yield" name="yield" required min="1" max="5000">
-            <button type="button" onclick="simulateExplosion()">Simulate Blast</button>
-        </form>
-        <p id="coordinates">Selected Location: None</p>
+
+    <div class="controls">
+        <h2>Nuclear Mapping Simulation</h2>
+        <label for="blast-radius">Blast Radius (km):</label>
+        <input type="number" id="blast-radius" value="5" min="1" max="20"><br><br>
+        <label for="blast-intensity">Blast Intensity:</label>
+        <input type="number" id="blast-intensity" value="200" min="1" max="500"><br><br>
+        <button id="simulate">Simulate Blast</button>
     </div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="script2.js"></script>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([40.7128, -74.0060], 13); // New York City coordinates
+
+        // Add a base layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Function to generate random blast data points within a radius
+        function generateBlastData(center, radius, intensity) {
+            const data = [];
+            for (let i = 0; i < intensity; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * radius;
+                const lat = center[0] + distance * Math.cos(angle) / 111;  // Approximate degree to km conversion
+                const lng = center[1] + distance * Math.sin(angle) / 111;
+                data.push([lat, lng, 0.5]); // [lat, lng, intensity]
+            }
+            return data;
+        }
+
+        // Function to simulate the blast
+        function simulateBlast() {
+            const blastCenter = [40.7128, -74.0060]; // Center of explosion
+            const blastRadius = parseFloat(document.getElementById("blast-radius").value); // Get radius from input
+            const blastIntensity = parseInt(document.getElementById("blast-intensity").value); // Get intensity from input
+
+            // Generate the heatmap data
+            const heatData = generateBlastData(blastCenter, blastRadius, blastIntensity);
+
+            // Remove existing heatmap layer if it exists
+            if (window.heat) {
+                map.removeLayer(window.heat);
+            }
+
+            // Add the new heatmap layer
+            window.heat = L.heatLayer(heatData, {
+                radius: 25, // Adjust radius for heat effect size
+                blur: 15,
+                maxZoom: 17
+            }).addTo(map);
+        }
+
+        // Add event listener for the simulate button
+        document.getElementById("simulate").addEventListener("click", simulateBlast);
+    </script>
+
 </body>
 </html>
