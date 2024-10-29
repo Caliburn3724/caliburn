@@ -2,20 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NukeMap Simulation</title>
+    <title>Interactive Nuke Simulation</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
-        #map { height: 100vh; }
-        .controls { padding: 10px; }
+        #map { height: 600px; width: 100%; }
+        #controls { margin: 20px; }
     </style>
 </head>
 <body>
+    <h1>Nuke Simulation Map</h1>
     <div id="map"></div>
-    <div class="controls">
-        <label for="blastRadius">Blast Radius (km):</label>
-        <input type="number" id="blastRadius" value="5">
-        <button onclick="simulateBlast()">Simulate Blast</button>
+    <div id="controls">
+        <p>Click on the map to select a blast location</p>
+        <form id="blast-form">
+            <label for="yield">Blast Yield (kilotons):</label>
+            <input type="number" id="yield" name="yield" required min="1" max="5000">
+            <button type="button" onclick="simulateExplosion()">Simulate Blast</button>
+        </form>
+        <p id="coordinates">Selected Location: None</p>
     </div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="script2.js"></script>
