@@ -1,19 +1,22 @@
-/* General Reset */
+/* Importing Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+/* Root Variables */
+:root {
+  --primary-color: #2d3142;       /* Dark Navy */
+  --accent-color: #ef8354;        /* Burnt Orange */
+  --background-color: #f7f7ff;    /* Soft White */
+  --text-color: #4f5d75;          /* Slate Gray */
+  --highlight-color: #bfc0c0;     /* Light Gray */
+  --luxury-font: 'Playfair Display', serif;
+  --body-font: 'Poppins', sans-serif;
+}
+
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-/* Colors */
-:root {
-  --primary-color: #2d3142;
-  --accent-color: #ef8354;
-  --background-color: #f7f7ff;
-  --text-color: #4f5d75;
-  --highlight-color: #bfc0c0;
-  --luxury-font: 'Playfair Display', serif;
-  --body-font: 'Poppins', sans-serif;
 }
 
 /* Body Styling */
@@ -24,35 +27,25 @@ body {
   line-height: 1.6;
 }
 
-/* Luxurious Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--luxury-font);
-  color: var(--primary-color);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-h1 {
-  font-size: 3rem;
-  line-height: 1.2;
-}
-
-h2 {
-  font-size: 2.5rem;
-  line-height: 1.3;
-}
-
-/* Navigation */
-nav {
+/* Header */
+header {
   background-color: var(--primary-color);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  color: var(--background-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+  font-family: var(--luxury-font);
+  font-size: 2.5rem;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
 }
 
 nav a {
@@ -67,55 +60,96 @@ nav a:hover {
   color: var(--accent-color);
 }
 
-/* Buttons */
-.button {
-  padding: 0.75rem 2rem;
-  background-color: var(--accent-color);
-  color: var(--background-color);
-  border: none;
-  border-radius: 50px;
+/* Section Styling */
+section {
+  padding: 2rem 4rem;
+  margin: 2rem 0;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  font-family: var(--luxury-font);
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+select {
+  padding: 0.5rem;
+  border: 2px solid var(--highlight-color);
+  border-radius: 5px;
   font-family: var(--body-font);
   font-size: 1rem;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  transition: border-color 0.3s;
+}
+
+select:focus {
+  border-color: var(--accent-color);
+}
+
+button {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  border-radius: 50px;
+  font-family: var(--body-font);
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.button:hover {
+button:hover {
   background-color: var(--highlight-color);
   color: var(--primary-color);
 }
 
-/* Cards */
-.card {
-  background-color: var(--background-color);
-  padding: 2rem;
-  margin: 1rem;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  transition: transform 0.3s;
+/* Mood History & Analysis */
+#mood-history {
+  list-style: none;
+  margin-top: 1rem;
 }
 
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.card-title {
-  font-family: var(--luxury-font);
-  font-size: 1.5rem;
+#mood-history li {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--highlight-color);
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+#mood-output, #mood-analysis {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--highlight-color);
+  border-radius: 5px;
+  background-color: #e3e3e3;
+  color: var(--text-color);
 }
 
 /* Footer */
 footer {
   background-color: var(--primary-color);
   color: var(--background-color);
-  padding: 2rem;
   text-align: center;
+  padding: 1.5rem;
   font-family: var(--body-font);
+}
+
+footer p {
+  font-size: 1rem;
 }
 
 footer a {
@@ -128,7 +162,7 @@ footer a:hover {
   color: var(--highlight-color);
 }
 
-/* Animations */
+/* Smooth Fade-In Animation */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -141,3 +175,4 @@ footer a:hover {
     transform: translateY(0);
   }
 }
+
