@@ -70,7 +70,7 @@ main {
   padding: 1rem;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  /* Box shadow removed */
 }
 
 #pet-display {
@@ -80,7 +80,7 @@ main {
 #pet {
   max-width: 80%;
   border-radius: 15px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  /* Box shadow removed */
 }
 
 /* Controls Styling */
