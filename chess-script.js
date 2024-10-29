@@ -1,88 +1,79 @@
-const canvas = document.getElementById('ludoBoard');
-const ctx = canvas.getContext('2d');
+const board = ChessBoard('board', {
+    draggable: true,
+    position: 'start',
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd,
+});
 
-const boardSize = 15;
-const squareSize = 40;
-const players = [
-    { color: 'red', position: 0, pieces: [] },
-    { color: 'green', position: 0, pieces: [] },
-    { color: 'blue', position: 0, pieces: [] },
-    { color: 'yellow', position: 0, pieces: [] }
-];
+// Initialize the chess game and chess engine
+let game = new Chess();
+let stockfish = new Worker('https://cdnjs.cloudflare.com/ajax/libs/stockfish/11.0.0/stockfish.js');
 
-let currentPlayerIndex = 0;
-
-function drawBoard() {
-    ctx.fillStyle = '#d4e6f1';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Draw the Ludo board squares
-    for (let i = 0; i < boardSize; i++) {
-        for (let j = 0; j < boardSize; j++) {
-            if (i === 7 || j === 7) {
-                ctx.fillStyle = (i < 7 ? players[0].color : players[1].color);
-                ctx.fillRect(i * squareSize, j * squareSize, squareSize, squareSize);
-            } else {
-                ctx.fillStyle = '#fff';
-                ctx.fillRect(i * squareSize, j * squareSize, squareSize, squareSize);
-            }
-            ctx.strokeStyle = '#000';
-            ctx.strokeRect(i * squareSize, j * squareSize, squareSize, squareSize);
-        }
+stockfish.onmessage = function(event) {
+    const message = event.data;
+    if (message.includes('bestmove')) {
+        const bestMove = message.split(' ')[1];
+        game.move(bestMove);
+        render();
+        board.position(game.fen());
+        renderMoveHistory(game.history());
     }
+};
 
-    players.forEach(player => {
-        player.pieces.forEach(piece => {
-            ctx.fillStyle = player.color;
-            ctx.beginPath();
-            ctx.arc(piece.x, piece.y, 15, 0, Math.PI * 2);
-            ctx.fill();
-        });
+function onDragStart(source, piece, position, orientation) {
+    if (game.in_checkmate() || game.in_draw() || piece.search(/^b/) !== -1) {
+        return false;
+    }
+}
+
+function onDrop(source, target) {
+    const move = game.move({
+        from: source,
+        to: target,
+        promotion: 'q' // Automatically promote to a queen
     });
-}
 
-function rollDice() {
-    const diceValue = Math.floor(Math.random() * 6) + 1;
-    document.getElementById('diceResult').innerText = `Dice rolled: ${diceValue}`;
-    movePlayer(diceValue);
-}
+    removeGreySquares();
+    renderMoveHistory(game.history());
+    if (move === null) return 'snapback'; // Invalid move
 
-function movePlayer(diceValue) {
-    const currentPlayer = players[currentPlayerIndex];
-
-    if (currentPlayer.position + diceValue <= 56) {
-        currentPlayer.position += diceValue;
-        const pieceX = (currentPlayer.position % boardSize) * squareSize + squareSize / 2;
-        const pieceY = Math.floor(currentPlayer.position / boardSize) * squareSize + squareSize / 2;
-        
-        currentPlayer.pieces.push({ x: pieceX, y: pieceY });
-
-        // Check for win
-        if (currentPlayer.position === 56) {
-            alert(`${currentPlayer.color.charAt(0).toUpperCase() + currentPlayer.color.slice(1)} wins!`);
-            resetGame();
-        } else {
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.length; // Switch turn
-        }
+    render();
+    if (game.game_over()) {
+        alert('Game over!');
     } else {
-        alert("Cannot move. Roll again.");
+        // If the move is valid, let the engine make a move
+        stockfish.postMessage('position fen ' + game.fen());
+        stockfish.postMessage('go movetime 1000');
     }
-
-    drawBoard();
 }
 
-// Reset game
-function resetGame() {
-    players.forEach(player => {
-        player.position = 0;
-        player.pieces = [];
-    });
-    currentPlayerIndex = 0;
-    drawBoard();
+function onSnapEnd() {
+    board.position(game.fen());
 }
 
-// Initial drawing of the board
-drawBoard();
+function removeGreySquares() {
+    $('#board .square-55d63').css('background', '');
+}
 
-// Roll dice button event
-document.getElementById('rollDice').addEventListener('click', rollDice);
+function renderMoveHistory(moves) {
+    let historyElement = $('#move-history').empty();
+    historyElement.empty();
+    for (let i = 0; i < moves.length; i++) {
+        historyElement.append('<span>' + (i + 1) + '. ' + moves[i] + '</span><br>')
+    }
+}
+
+function render() {
+    board.position(game.fen());
+    $('#status').html(game.game_over() ? 'Game over' : '');
+}
+
+// Button handlers
+$('#startBtn').on('click', board.start);
+$('#clearBtn').on('click', board.clear);
+
+// Initialize the board on load
+$(document).ready(function() {
+    board.position('start');
+});
